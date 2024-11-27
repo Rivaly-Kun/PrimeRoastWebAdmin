@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- External Libraries -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- CSS File -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='css/img/NewLogo.png') }}">
+
+    <title>PrimeRoastAdmin</title>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- Logo -->
+            <img src="{{ url_for('static', filename='css/img/NewLogo.png') }}" id="Shopicon" class='bx'>
+        </a>
+        <ul class="side-menu top">
+
+            <li class="active">
+                <a href="#" id="dashboard-link">
+                    <i class='bx'>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m12.707 2.293l9 9c.63.63.184 1.707-.707 1.707h-1v6a3 3 0 0 1-3 3h-1v-7a3 3 0 0 0-2.824-2.995L13 12h-2a3 3 0 0 0-3 3v7H7a3 3 0 0 1-3-3v-6H3c-.89 0-1.337-1.077-.707-1.707l9-9a1 1 0 0 1 1.414 0M13 14a1 1 0 0 1 1 1v7h-4v-7a1 1 0 0 1 .883-.993L11 14z" />
+                        </svg>
+
+                    </i>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="search-link">
+                    <i class='bx'>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd" d="M5.586 4.586C5 5.172 5 6.114 5 8v9c0 1.886 0 2.828.586 3.414S7.114 21 9 21h6c1.886 0 2.828 0 3.414-.586S19 18.886 19 17V8c0-1.886 0-2.828-.586-3.414S16.886 4 15 4H9c-1.886 0-2.828 0-3.414.586M9 8a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2zm0 4a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2z" clip-rule="evenodd"></path>
+                        </svg>
+
+                    </i>
+                    <span class="text">Orders</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="orders-link">
+                    <i class='bx'>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M19 7c0-1.1-.9-2-2-2h-3v2h3v2.65L13.52 14H10V9H6c-2.21 0-4 1.79-4 4v3h2c0 1.66 1.34 3 3 3s3-1.34 3-3h4.48L19 10.35zM7 17c-.55 0-1-.45-1-1h2c0 .55-.45 1-1 1"></path>
+                            <path fill="currentColor" d="M5 6h5v2H5zm14 7c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3s-1.34-3-3-3m0 4c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1"></path>
+                        </svg>
+
+                    </i>
+                    <span class="text">Outgoing</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="favorites-link">
+                    <i class='bx'>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 12 12">
+                            <path fill="black" d="M1 6a5 5 0 1 1 2.59 4.382l-1.944.592a.5.5 0 0 1-.624-.624l.592-1.947A5 5 0 0 1 1 6m3-.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5M4.5 7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                        </svg>
+
+                    </i>
+                    <span class="text">Messages</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="history-link">
+                    <i class='bx'>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                            <path fill="black" d="m15.5 19.925l-4.25-4.25l1.4-1.4l2.85 2.85l5.65-5.65l1.4 1.4zM21 10h-2V5h-2v3H7V5H5v14h6v2H5q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.175q.275-.875 1.075-1.437T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5zm-9-5q.425 0 .713-.288T13 4t-.288-.712T12 3t-.712.288T11 4t.288.713T12 5" />
+                        </svg>
+
+                    </i>
+                    <span class="text">Inventory</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="history-link">
+                    <i class='bx'>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24">
+                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9a9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                <path d="M3 3v5h5m4-1v5l4 2" />
+                            </g>
+                        </svg>
+
+                    </i>
+                    <span class="text">History</span>
+                </a>
+            </li>
+  <!-- ANG ADRESS ADTU E BUTANG SA PROFILE PAGE -->
+
+            <!-- More menu items... -->
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a id="LogoutBtn" href="#" class="logout">
+                    <i class='bx bx-log-out'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content">
+
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input"></div>
+            </form>
+            
+            <div class="notification">
+                <div class="bell-container">
+                    <i class='bx bx-bell'></i>
+                </div>
+                <div class="notification-box" style="display: none;">
+                    <table id="notiftbl"></table>
+                </div>
+            </div>
+    
+            <a href="#" id="profile-link">
+                <!-- Profile Picture -->
+                <img id="profileImage">
+            </a>
+    
+            <button id="authButton" style="display: none;">Sign In/Sign Up</button>
+    
+            <label class="ui-switch" for="switch-mode">
+                <input type="checkbox" id="switch-mode" hidden>
+                <div class="slider">
+                    <div class="circle"></div>
+                </div>
+            </label>
+        </nav>
+
+
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1 id="content-title">Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li><a class="active" href="#" id="BreadcrumName">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="dashboard-content">
+
+                <form>
+                    <div id="lowerbox">
+                     
+                     
+                               <!-- Here mga sud -->
+<div class="box" id="updateMenu">
+    <!-- Plus button to open the menu -->
+    <span class="plus-sign">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+            <g fill="none" fill-rule="evenodd">
+                <path fill="currentColor" d="M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-4H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h4z"/>
+            </g>
+        </svg>
+    </span>
+
+    <div id="productMenu" class="menu-popup">
+        <div class="menu-content">
+            <h3>Add Product</h3>
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" placeholder="Enter product name" />
+
+            <label for="productImage">Upload Product Image:</label>
+            <input type="file" id="productImage" accept="image/*" />
+
+            <!-- Category Section -->
+            <label for="productCategory">Category:</label>
+            <select id="productCategory">
+                <option value="" disabled selected>Select category</option>
+            </select>
+            <button type="button" id="addCategoryBtn">Add New Category</button>
+
+            <!-- New Category Modal -->
+            <div id="newCategoryModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h4>New Category</h4>
+                    <input type="text" id="newCategoryName" placeholder="Enter category name" />
+                    <button type="button" id="saveCategoryBtn">Save Category</button>
+                    <button type="button" id="closeCategoryModal">Close</button>
+                </div>
+            </div>
+
+            <!-- Variant and Price Fields -->
+            <h4>Variants</h4>
+            <div id="variantsContainer">
+                <div class="variant">
+                    <label for="variantName1">Variant 1 Name:</label>
+                    <input type="text" class="variant-name" placeholder="Enter variant name (e.g., 'spicy sinigang')" />
+                    <label for="variantPrice1">Price:</label>
+                    <input type="number" class="variant-price" placeholder="Enter price (e.g., '160')" />
+                </div>
+            </div>
+            <button type="button" id="addVariant">Add Another Variant</button>
+
+            <button id="submitProduct">Add Product</button>
+            <button id="closeMenu">Close</button>
+        </div>
+    </div>
+</div>
+
+                                <div class="box">
+                                    <span class="plus-sign">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                                            <path fill="currentColor" fill-rule="evenodd" d="M5.586 4.586C5 5.172 5 6.114 5 8v9c0 1.886 0 2.828.586 3.414S7.114 21 9 21h6c1.886 0 2.828 0 3.414-.586S19 18.886 19 17V8c0-1.886 0-2.828-.586-3.414S16.886 4 15 4H9c-1.886 0-2.828 0-3.414.586M9 8a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2zm0 4a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2z" clip-rule="evenodd" />
+                                        </svg>
+
+                                    </span>
+                                </div>
+                                            <div class="box HomeBoxes">
+                                                <span class="plus-sign">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                                                        <path fill="currentColor" d="M19 7c0-1.1-.9-2-2-2h-3v2h3v2.65L13.52 14H10V9H6c-2.21 0-4 1.79-4 4v3h2c0 1.66 1.34 3 3 3s3-1.34 3-3h4.48L19 10.35zM7 17c-.55 0-1-.45-1-1h2c0 .55-.45 1-1 1" />
+                                                        <path fill="currentColor" d="M5 6h5v2H5zm14 7c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3s-1.34-3-3-3m0 4c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1" />
+                                                    </svg>
+
+                                                </span>
+                                            </div>
+                                    
+                      
+                    </div>
+                    
+                </form>
+
+            </div>
+        </main>
+
+                        <!-- Pop-up Container -->
+                        <div id="popup" class="popup-container" style="display: none;">
+                            <div class="popup-content">
+                                <span id="closePopup" class="close-popup">&times;</span>
+                                <h2>Login or Sign Up</h2>
+                                <!-- Login Form -->
+                                <form id="loginForm">
+                                    <input type="email" id="loginEmail" placeholder="Email" required>
+                                    <input type="password" id="loginPassword" placeholder="Password" required>
+                                    <button type="submit">Login</button>
+                                </form>
+                        
+                                <hr>
+                        
+                                <!-- Sign Up Form -->
+                                <form id="signupForm">
+                                    <input type="email" id="signupEmail" placeholder="Email" required>
+                                    <input type="password" id="signupPassword" placeholder="Password" required>
+                                    <button type="submit">Sign Up</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+
+    <!-- Content for the "search" section -->
+    <main>
+        <div id="search-content" style="display: none;">
+            <table>
+                <tbody id="AnnouncementsDiv" >
+                    <!-- Here mga sud -->
+                     <p>Search</p>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Content for the "orders" section -->
+    <main>
+        <div id="orders-content" style="display: none;">
+            <table>
+                <tbody id="AnnouncementsDiv" >
+                    <p>orders</p>
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+        <!-- Content for the "favorites" section -->
+        <main>
+            <div id="favorites-content" style="display: none;">
+                <table>
+                    <tbody id="AnnouncementsDiv" >
+                        <p>favorites</p>
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+            <!-- Content for the "history" section -->
+      <main>
+        <div id="history-content" style="display: none;">
+            <table>
+                <tbody id="AnnouncementsDiv" >
+                    <p>history</p>
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    </section>
+
+    <!-- JavaScript Files -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/updateMenu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/content.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@10"></script>
+
+    <!-- Add more JS files as needed -->
+</body>
+</html>
