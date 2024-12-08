@@ -23,24 +23,7 @@ const database = getDatabase();
 const realdb = getDatabase();
 const dbref = ref(realdb);
 
-// Handle user authentication state
-onAuthStateChanged(auth, (user) => {
-    const profileImage = document.getElementById('profileImage');
-    const authButton = document.getElementById('authButton');
 
-    if (user) {
-        // User is signed in
-        profileImage.style.display = 'block';
-        authButton.style.display = 'none';
-
-        // Display user's profile picture or default profile image
-        profileImage.src ="PrimeRoastWebAdmin/static/css/img/default_profile.jpg";
-    } else {
-        // No user is signed in, show sign-in button
-        profileImage.style.display = 'none';
-        authButton.style.display = 'block';
-    }
-});
 
 // Event listener for sign-in/sign-up button
 document.getElementById('authButton').addEventListener('click', function() {
@@ -120,25 +103,6 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-// Listen for authentication state changes
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in, get the profile picture URL
-        get(child(dbref, 'users/' + user.uid + '/pfp')).then((snapshot) => {
-            if (snapshot.exists()) {
-                document.getElementById('profileImage').src = snapshot.val(); // Update profile image
-            } else {
-                // If no profile picture is set, you can use a default image or handle accordingly
-                document.getElementById('profileImage').src = "https://firebasestorage.googleapis.com/v0/b/tradingo-824d6.appspot.com/o/Pfp%2Fdefault.jpg?alt=media&token=f9ff1cb9-6c5a-4987-adff-05eb9f4d5d46"; // Default PFP
-            }
-        }).catch((error) => {
-            console.error("Error getting profile picture: ", error);
-        });
-    } else {
-        // User is signed out, set to default picture
-        document.getElementById('profileImage').src = "https://firebasestorage.googleapis.com/v0/b/tradingo-824d6.appspot.com/o/Pfp%2Fdefault.jpg?alt=media&token=f9ff1cb9-6c5a-4987-adff-05eb9f4d5d46"; // Default PFP
-    }
-});
 
 
   

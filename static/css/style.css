@@ -1,4 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+.LowerLowerBox {
+    border-radius: 0 0 15px 15px; /* Top-left: 0, Top-right: 0, Bottom-right: 15px, Bottom-left: 15px */
+    width: 100%;
+    height: 100%;
+    background-color: var(--light);
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 14px;
+    color: #2c3e50; /* Dark gray-blue for text */
+    text-align: left;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9fff0; /* Light greenish background */
+}
+
+.order-table th, .order-table td {
+    padding: 12px 15px;
+    border: 1px solid #cce7cc; /* Soft green border */
+}
+
+.order-table th {
+    background-color: #a5d6a7; /* Light green header */
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2e7d32; /* Dark green text */
+}
+
+.order-table tbody tr:nth-child(even) {
+    background-color: #e8f5e9; /* Very light green for even rows */
+}
+
+.order-table tbody tr:hover {
+    background-color: #c8e6c9; /* Slightly darker green on hover */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-table td {
+    word-wrap: break-word;
+    white-space: normal;
+    vertical-align: middle;
+}
+
+/* Optional: Add responsive design for smaller screens */
+@media (max-width: 768px) {
+    .order-table {
+        font-size: 12px;
+    }
+
+    .order-table th, .order-table td {
+        padding: 10px;
+    }
+}
+
+
+
+
+
 .menu-popup {
     display: none;
     position: fixed;
@@ -47,7 +115,7 @@
 
 .box {
     width: 280px;
-    height: 230px;
+	height: 117%;
     background-color: #f0f0f0;
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -62,6 +130,7 @@
     font-size: 48px;
     color: #333;
 }
+
 
 
 /* Pop-up Container */
@@ -1066,9 +1135,9 @@ form {
 }
 
 #lowerbox {
-	border-radius: 15px;
+	border-radius: 15px 15px 0px 0px;
     width: 100%; /* Full width of its container */
-    height: fit-content; /* Larger portion of the form, adjusted for total height */
+    height: 20%; /* Larger portion of the form, adjusted for total height */
     background-color:  var(--light); /* Slightly different background for contrast */
     padding: 20px;
     display: flex;
