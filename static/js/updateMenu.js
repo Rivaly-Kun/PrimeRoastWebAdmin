@@ -20,13 +20,14 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 const storage = getStorage(app);
 
+const menupopup = document.getElementsByClassName('menu-popup');
 const productMenu = document.getElementById('productMenu');
 const updateMenu = document.getElementById('updateMenu');
-const closeMenu = document.getElementById('closeMenu');
+const closeMenu = document.getElementById('closeMenuANIMALYAWA');
 const submitProduct = document.getElementById('submitProduct');
 const variantsContainer = document.getElementById('variantsContainer');
 const addVariantButton = document.getElementById('addVariant');
-const productCategory = document.getElementById('productCategory'); // Ensure this is defined
+const productCategory = document.getElementById('productCategory');
 const categoryNameInput = document.getElementById('newCategoryName');
 const saveCategoryButton = document.getElementById('saveCategoryBtn');
 const addCategoryButton = document.getElementById('addCategoryBtn');
@@ -34,15 +35,41 @@ const newCategoryModal = document.getElementById('newCategoryModal');
 const closeCategoryModal = document.getElementById('closeCategoryModal');
 let variantCount = 1;
 
-// Open the Product Menu when `.box` is clicked
-updateMenu.addEventListener('click', () => {
-    productMenu.style.display = 'block';
-});
+// Open the Product Menu
+// Open the Product Menu
+updateMenu.onclick = () => {
+    if (menupopup.length > 0) {
+        // Remove 'open' class from all menu-popup elements
+        Array.from(menupopup).forEach(menu => {
+            document.getElementById("productMenu").classList.add("open", "menu-popup"); 
+            productMenu.style.display = 'block';
+        });
+
+        // Add 'open' class to the current product menu
+        productMenu.classList.add('open');
+    } else {
+        console.error("menu-popup element not found.");
+    }
+};
 
 // Close the Product Menu
-closeMenu.addEventListener('click', () => {
-    productMenu.style.display = 'none';
-});
+closeMenu.onclick = () => {
+    if (menupopup.length > 0) {
+        console.log('Product Menu Closed');
+        
+       
+        // Remove 'open' class from all menu-popup elements
+        Array.from(menupopup).forEach(menu => {
+            document.getElementById("productMenu").classList.remove("open", "menu-popup");
+            productMenu.style.display = 'none';
+        });
+        
+    } else {
+        console.error("menu-popup element not found.");
+    }
+};
+
+
 
 // Load Categories into the Dropdown
 function loadCategories() {
@@ -112,6 +139,8 @@ addVariantButton.addEventListener('click', () => {
         <input type="text" class="variant-name" placeholder="Enter variant name (e.g., 'spicy sinigang')" />
         <label for="variantPrice${variantCount}">Price:</label>
         <input type="number" class="variant-price" placeholder="Enter price (e.g., '160')" />
+        <label for="variantStock${variantCount}">Stock:</label>
+        <input type="number" class="variant-stock" placeholder="Enter stock (e.g., '50')" />
     `;
     variantsContainer.appendChild(newVariantDiv);
 });
@@ -163,16 +192,24 @@ function saveProductData(imageUrls) {
 
     const variantNames = document.querySelectorAll('.variant-name');
     const variantPrices = document.querySelectorAll('.variant-price');
+    const variantStocks = document.querySelectorAll('.variant-stock');
     const variants = {};
 
     variantNames.forEach((nameInput, index) => {
         const priceInput = variantPrices[index];
+        const stockInput = variantStocks[index];
+
         const variantName = nameInput.value;
         const variantPrice = priceInput.value;
+        const variantStock = stockInput.value;
 
-        if (variantName && variantPrice) {
+        if (variantName && variantPrice && variantStock) {
             const variantKey = `var${index + 1}`;
-            variants[variantKey] = `${variantName} + ${variantPrice}`;
+            variants[variantKey] = {
+                name: variantName,
+                price: variantPrice,
+                stock: variantStock
+            };
         }
     });
 
@@ -180,8 +217,8 @@ function saveProductData(imageUrls) {
         productId: productId,
         productName: productName,
         productImage: imageUrls[0],
-        variant: variants,
-        category: productCategory.value
+        variants: variants,
+        category: document.getElementById('productCategory').value
     };
 
     const productRef = ref(database, 'products/' + productId);

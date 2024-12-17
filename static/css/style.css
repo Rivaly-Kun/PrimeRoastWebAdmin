@@ -9,6 +9,867 @@
     justify-content: space-evenly;
     align-items: center;
 }
+/* Basic styling for the menu-popup */
+.menu-popup {
+    display: none !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: fit-content;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* When open, show the menu-popup */
+.menu-popup.open {
+    display: flex !important;
+}
+
+/* Styling for the menu content */
+.menu-content {
+    height: 90% !important;
+    overflow: auto !important;
+    
+    padding: 20px !important;
+    border-radius: 8px !important;
+    width: 400px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Title styling */
+.menu-content h3 {
+    margin-bottom: 20px !important;
+    text-align: center !important;
+    font-size: 24px !important;
+    color: #333 !important;
+}
+
+/* Input field styling */
+.menu-content label {
+    margin-top: 10px !important;
+    font-size: 14px !important;
+    color: #555 !important;
+}
+
+/* Input fields styling */
+.menu-content input,
+.menu-content select {
+    margin-top: 5px !important;
+    padding: 8px !important;
+    font-size: 16px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Button styling */
+.menu-content button {
+    margin-top: 15px !important;
+    padding: 10px 15px !important;
+    background-color: #4CAF50 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    transition: background-color 0.3s !important;
+}
+
+.menu-content button:hover {
+    background-color: #45a049 !important;
+}
+
+/* Add Category Button */
+#addCategoryBtn {
+    background-color: #007bff !important;
+}
+
+#addCategoryBtn:hover {
+    background-color: #0056b3 !important;
+}
+
+/* Variant fields styling */
+.variant {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 20px !important;
+}
+
+.variant input {
+    margin-top: 5px !important;
+}
+
+
+.modal-content h4 {
+    text-align: center !important;
+    margin-bottom: 15px !important;
+}
+
+/* Close modal button */
+#closeCategoryModal {
+    background-color: #dc3545 !important;
+}
+
+#closeCategoryModal:hover {
+    background-color: #c82333 !important;
+}
+
+
+/* General Modal Styles */
+.transaction-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto; /* For scrolling content */
+    padding: 20px;
+}
+
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #e74c3c;
+}
+
+.modal-content h2 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+/* Transaction Details Section */
+.transaction-details p {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #555;
+}
+
+.transaction-details strong {
+    color: #2c3e50;
+}
+
+/* Ordered Items Section */
+.ordered-items {
+    margin-top: 20px;
+}
+
+.order-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.order-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-item div {
+    flex: 1;
+}
+
+.order-item div p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.order-item div strong {
+    color: #34495e;
+    font-weight: bold;
+}
+#productMenu {
+    display: none;
+}
+
+#productMenu.active {
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 15px;
+    }
+
+    .modal-content h2 {
+        font-size: 20px;
+    }
+
+    .transaction-details p {
+        font-size: 14px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .order-item img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Transaction Table Styles */
+#TransactionsTableRecent {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#TransactionsTableRecent th,
+#TransactionsTableRecent td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#TransactionsTableRecent th {
+    background-color: #a5d6a7;
+    color: #2e7d32;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#TransactionsTableRecent tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.transaction-row:hover {
+    background-color: #f1f1f1;
+}
+
+.view-details-btn {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.view-details-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Modal Styles */
+.transaction-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow-y: auto;
+    max-height: 80%;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+.transaction-details h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border-bottom: 2px solid #3498db;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.order-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-item img {
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-item div p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+#editProductModal,#editVariantModal { 
+    display: none;
+     position: fixed;
+      z-index: 1;
+      padding-top:
+       60px;
+        left: 50%;
+      top: 50%; 
+      width: 100%;
+       height: 100%;
+        overflow: auto; 
+        background-color: rgba(0, 0, 0, 0.4);
+     }
+#modal-content { background-color: white; margin: auto; padding: 20px; border: 1px solid #888; width: 80%; }
+#close-btnEditprod { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+
+/* Table styling */
+table {
+    font-family: 'Roboto', Arial, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.view-details-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.view-details-btn:hover {
+    background-color: #0056b3;
+}
+
+.transaction-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.transaction-modal .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.ordered-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.order-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+thead {
+    background-color: #a5d6a7;
+    color: #2e7d32;
+}
+
+thead th {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+tbody td {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.no-orders-message {
+    text-align: center;
+    font-size: 14px;
+    color: gray;
+    padding: 20px;
+}
+
+/* Image styling */
+td img {
+    display: block;
+    max-width: 50px;
+    max-height: 50px;
+    margin: auto;
+    border-radius: 5px;
+}
+
+/* Button styling */
+button {
+    padding: 5px 10px;
+    margin: 0 2px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-btn {
+    background-color: #2e7d32;
+    color: white;
+    margin: 10px;
+}
+.edit-variant-btn {
+    background-color: #2e7d32;
+    color: white;
+    margin: 10px;
+}
+
+.edit-btn:hover {
+    background-color: #a5d6a7 ;
+}
+.edit-variant-btn:hover {
+    background-color: #a5d6a7;
+}
+
+.delete-btn {
+    margin: 10px;
+    background-color: #e53935;
+    color: white;
+}
+.delete-variant-btn {
+    margin: 10px;
+    background-color: #e53935;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+#userList li{
+    width: 220px;
+    overflow: auto;
+}
+.user-sidebar li {
+   
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+}
+.modal-footer {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Align items vertically */
+    padding: 10px; /* Add some padding for better spacing */
+    background-color: #f9f9f9; /* Optional: Add background color */
+    border-top: 1px solid #ddd; /* Optional: Add a top border for separation */
+    gap: 10px; /* Add spacing between items */
+}
+
+.footer-profile-image {
+    width: 40px; /* Set width for the profile image */
+    height: 40px; /* Set height for the profile image */
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Ensure the image is fully visible */
+}
+
+#messageInput {
+    flex-grow: 1; /* Allow the input field to take up remaining space */
+    padding: 8px; /* Add padding for better usability */
+    font-size: 16px; /* Increase font size */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add rounded corners */
+    outline: none; /* Remove default outline */
+}
+
+#messageInput:focus {
+    border-color: #007bff; /* Highlight border when focused */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add subtle shadow on focus */
+}
+
+#sendMessage {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 8px 16px; /* Adjust padding */
+    font-size: 16px; /* Increase font size */
+    cursor: pointer; /* Add pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+#sendMessage:hover {
+    background-color: #0056b3; /* Darken button on hover */
+}
+
+#sendMessage:active {
+    background-color: #003f7f; /* Darker color when clicked */
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    max-width: 1400px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-content {
+    font-family: var(--poppins);
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+    width: fit-content;
+    min-width: 1000px;
+}
+
+.user-sidebar {
+    width: 300px;
+   
+
+    border-right: 1px solid #ddd;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+.user-sidebar h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
+
+.user-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.user-sidebar li:hover {
+    background-color: #e3f2fd;
+    color: #0056b3;
+}
+
+.user-sidebar .active {
+    background-color: #d1e7ff;
+    color: #004085;
+}
+
+.chat-container {
+    width: 100%;
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    z-index: 99999;
+}
+
+#chatHeader {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+
+.message-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Add spacing between messages */
+}
+
+/* Message box styling */
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-bottom: 10px;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.message-text {
+    padding: 10px 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* User message styling */
+.user-message {
+    align-self: flex-start;
+}
+
+.user-message .message-text {
+    background-color: #d1e7ff;
+    color: #004085;
+}
+
+/* Support message styling */
+.support-message {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.support-message .message-text {
+    background-color: #e9e9e9;
+    color: #333;
+}
+
+/* Input and button styling */
+#messageInput {
+    width: 75%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-right: 8px;
+    box-sizing: border-box;
+}
+
+#sendMessage {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#sendMessage:hover {
+    background-color: #0056b3;
+}
+
+#closesuportmodal {
+    width: fit-content;
+    height: fit-content;
+}
+.user-profile-image {
+    width: 40px; /* Set width of the profile picture */
+    height: 40px; /* Set height of the profile picture */
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px; /* Add some spacing between the image and the name */
+    object-fit: cover; /* Ensure the image covers the circle */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+
+
+
+
+.no-orders-message {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2em;
+    color: #666;
+    margin: 20px 0;
+}
+.floating-circle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #ff6f61;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.floating-circle svg{
+color: var(--dark);
+}
+.floating-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.floating-circle svg {
+    fill: white;
+    width: 36px;
+    height: 36px;
+}
+.outgoing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 14px;
+    color: #2c3e50; /* Dark gray-blue for text */
+    text-align: left;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9fff0; /* Light greenish background */
+}
+
+.outgoing-table th, .outgoing-table td {
+    padding: 12px 15px;
+    border: 1px solid #cce7cc; /* Soft green border */
+}
+
+.outgoing-table th {
+    background-color: #a5d6a7; /* Light green header */
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2e7d32; /* Dark green text */
+}
+
+.outgoing-table tbody tr:nth-child(even) {
+    background-color: #e8f5e9; /* Very light green for even rows */
+}
+
+.outgoing-table tbody tr:hover {
+    background-color: #c8e6c9; /* Slightly darker green on hover */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.outgoing-table td {
+    word-wrap: break-word;
+    white-space: normal;
+    vertical-align: middle;
+}
+
+img {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Optional: Add responsive design for smaller screens */
+@media (max-width: 768px) {
+    .outgoing-table {
+        font-size: 12px;
+    }
+
+    .outgoing-table th, .outgoing-table td {
+        padding: 10px;
+    }
+}
+
+
+img {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
 
 .order-table {
     width: 100%;
@@ -64,6 +925,15 @@
 }
 
 
+/* Default hidden state */
+#productMenu {
+    display: none;
+}
+
+/* Visible state when the 'open' class is added */
+#productMenu.open {
+    display: block;
+}
 
 
 
@@ -125,6 +995,11 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
+.box span {
+    font-weight: bold; /* Corrected from font-style */
+    font-size: 24px;
+}
+
 
 .plus-sign {
     font-size: 48px;
@@ -418,15 +1293,6 @@ left: 90%;
 }
 
 
-.edit-btn, .delete-btn,.report-btn {
-	align-content: space-around;
-	background-color: var(--light);
-    border: none;
-	border-radius: 30px;
-    padding: 30px;
-    width: calc(100%);
-    display: block; /* Make sure input and button are block level for full width */
-}
 .post-home-tr {
 	padding: 30px;
 
@@ -748,17 +1614,6 @@ color: var(--dark);
     padding: 10px;
 }
 
-  /* Container for the chat interface */
-  .chat-container {
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-	border-radius: 0 10px 10px 0; /* Rounded corners on the right */
-	overflow: hidden; /* Hide overflow */
-	background-color: #f9f9f9; /* Light background color */
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
 /* Chat box where messages will appear */
 .chat-box {
 	flex-grow: 1;
@@ -834,18 +1689,7 @@ color: var(--dark);
 }
 
 
-/* Container for the entire chat interface */
-.chat-container {
-    display: flex;
-    flex-direction: column;
-    width: 400px; /* Adjust width as needed */
-    height: 100%; /* Adjust height as needed */
-    border: 1px solid #ccc; /* Light border for the chat container */
-    border-radius: 10px; /* Rounded corners */
-    overflow: hidden; /* Hide overflow */
-    background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
+
 
 /* Chat box where messages will appear */
 .chat-box {

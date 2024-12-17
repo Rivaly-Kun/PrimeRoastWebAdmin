@@ -105,21 +105,24 @@ function validateEmail(email) {
 
 
 
-  
-LogoutBtn.addEventListener('click', (e) => {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-        Swal.fire({
-          title: "Logged out!",
-          text: "logout successful!",
-          icon: "success"
-        }).then((result) => {
-
-
-        });
-    }).catch((error) => {
-        // Handle errors here, such as by displaying a notification to the user
-        console.error("Error during sign out:", error);
-    });
+LogoutBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+        const response = await fetch('/logout', { method: 'POST' });
+        if (response.ok) {
+            Swal.fire({
+                title: "Logged out!",
+                text: "Logout successful!",
+                icon: "success"
+            }).then(() => {
+                window.location.href = "/   "; // Redirect to the Flask admin login route
+            });
+        } else {
+            throw new Error("Failed to log out");
+        }
+    } catch (error) {
+        console.error("Error during logout:", error);
+        alert("An error occurred while logging out.");
+    }
 });
 

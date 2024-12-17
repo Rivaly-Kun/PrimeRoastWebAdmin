@@ -2,7 +2,7 @@ const contentTitle = document.getElementById('content-title');
 const dashboardLink = document.getElementById('dashboard-link');
 const analyticsLink = document.getElementById('search-link');
 const membersLink = document.getElementById('orders-link');
-const scannerlink = document.getElementById('favorites-link');
+
 const profilelink = document.getElementById('history-link');
 
 
@@ -14,7 +14,7 @@ function showContent(contentId, title) {
     document.getElementById('dashboard-content').style.display = 'none';
     document.getElementById('search-content').style.display = 'none';
     document.getElementById('orders-content').style.display = 'none';
-    document.getElementById('favorites-content').style.display = 'none';
+
     document.getElementById('history-content').style.display = 'none';
 
     document.getElementById(contentId).style.display = 'block';
@@ -26,8 +26,8 @@ dashboardLink.addEventListener('click', () => {
 });
 
 analyticsLink.addEventListener('click', () => {
-    showContent('search-content', 'Announcements');
-    Bread.textContent = 'Search'; 
+    showContent('search-content', 'Inventory');
+    Bread.textContent = 'Inventory'; 
 });
 
 membersLink.addEventListener('click', () => {
@@ -35,13 +35,9 @@ membersLink.addEventListener('click', () => {
     Bread.textContent = 'Orders	';
 
 });
-scannerlink.addEventListener('click', () => {
-    showContent('favorites-content', 'Favorites');
-    Bread.textContent = 'Favorites	';
 
-});
 profilelink.addEventListener('click', () => {
-    showContent('history-content', 'History');
-    Bread.textContent = 'History';
+    showContent('history-content', 'Transactions');
+    Bread.textContent = 'Transactions';
    
 });
