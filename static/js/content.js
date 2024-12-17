@@ -41,3 +41,7 @@ profilelink.addEventListener('click', () => {
     Bread.textContent = 'Transactions';
    
 });
+
+window.onload = function() {
+    document.getElementById('orders-content').style.display = 'none';
+};

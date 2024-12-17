@@ -19,88 +19,107 @@ const database = getDatabase(app);
 
 // Function to fetch and display all outgoing orders
 async function fetchOutgoingOrders() {
-    try {
-        const dbRef = ref(database, "outgoing"); // Path to 'outgoing' node in Firebase
-        const snapshot = await get(dbRef);
+    const dbRef = ref(database, "outgoing");
+    const snapshot = await get(dbRef);
+    const tableBody = document.getElementById("outgoingDiv");
 
-        // Log fetched data for debugging
-        console.log("Firebase snapshot data:", snapshot.val());
-
-        // Check if data exists
-        if (!snapshot.exists()) {
-            console.warn("No orders found!");
-            updateTableWithMessage("No outgoing orders found.");
-            return;
-        }
-
-        const orders = snapshot.val();
-        const tableBody = document.getElementById("outgoingDiv");
-
-        // Ensure the table body exists before modifying
-        if (!tableBody) {
-            console.error("Table element with id 'outgoingDiv' not found.");
-            return;
-        }
-
-        // Clear existing rows in the table
-        tableBody.innerHTML = "";
-
-        // Helper function to fetch username by UID
-        async function fetchUsername(uid) {
-            try {
-                const userRef = ref(database, `users/${uid}/name`);
-                const userSnapshot = await get(userRef);
-                return userSnapshot.exists() ? userSnapshot.val() : "Unknown User";
-            } catch (error) {
-                console.error(`Failed to fetch username for UID: ${uid}`, error);
-                return "Unknown User";
-            }
-        }
-
-        // Iterate over all orders and populate the table
-        for (const uid of Object.keys(orders)) {
-            const username = await fetchUsername(uid); // Fetch the username for the current UID
-            const indexedOrderData = orders[uid];
-            const orderKey = Object.keys(indexedOrderData)[0]; // Get the index key (e.g., '3')
-            const orderData = indexedOrderData[orderKey]; // Access the nested order data
-
-            // Log the extracted order data
-            console.log(orderData);
-
-            const status = orderData.Status || "N/A";
-            const contactNumber = orderData.contactNumber || "N/A";
-            const orderTime = orderData.orderTime || "N/A";
-            const orderItems = orderData.orderItems || {};
-
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${username}</td>
-                <td>${status}</td>
-                <td>${contactNumber}</td>
-                <td>${orderTime}</td>
-                <td>
-                    <ul style="list-style: none; padding: 0;">
-                        ${Object.values(orderItems)
-                            .map(
-                                (item) => `
-                                    <li style="margin-bottom: 10px; display: flex; align-items: center;">
-                                        <img src="${item.productImage}" alt="${item.productName}" style="width: 50px; height: 50px; margin-right: 10px;">
-                                        <span>${item.productName} (${item.variant})</span>
-                                        - Qty: ${item.quantity} @ ${item.price}
-                                    </li>
-                                `
-                            )
-                            .join("")}
-                    </ul>
-                </td>
-                
-            `;
-            tableBody.appendChild(row);
-        }
-    } catch (error) {
-        console.error("Failed to fetch outgoing orders:", error);
-        updateTableWithMessage("Failed to fetch outgoing orders. Please try again later.");
+    if (!snapshot.exists()) {
+        tableBody.innerHTML = `<tr><td colspan="5">No outgoing orders found.</td></tr>`;
+        return;
     }
+
+    const orders = snapshot.val();
+
+    for (const uid of Object.keys(orders)) {
+        const username = await fetchUsername(uid);
+        const indexedOrderData = orders[uid];
+        const orderKey = Object.keys(indexedOrderData)[0];
+        const orderData = indexedOrderData[orderKey];
+
+        const { Status, contactNumber, orderTime, orderItems } = orderData;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${username}</td>
+            <td>${Status || "N/A"}</td>
+            <td>${contactNumber || "N/A"}</td>
+            <td>${orderTime || "N/A"}</td>
+            <td>
+                <button class="toggle-btn">Show Orders</button>
+                <div class="order-modal" style="display: none;">
+                    <ul>
+                        ${Object.values(orderItems).map(item => `
+                            <li>
+                                <img src="${item.productImage}" alt="${item.productName}" />
+                              ${item.variant} - Qty: ${item.quantity} ₱ ${item.price}
+                            </li>
+                        `).join("")}
+                    </ul>
+                </div>
+            </td>
+        `;
+
+        // Append row to table
+        tableBody.appendChild(row);
+
+        // Toggle functionality
+        const toggleBtn = row.querySelector(".toggle-btn");
+        const modal = row.querySelector(".order-modal");
+
+        toggleBtn.addEventListener("click", () => {
+            const isVisible = modal.style.display === "block";
+            modal.style.display = isVisible ? "none" : "block";
+            toggleBtn.textContent = isVisible ? "Show Orders" : "Hide Orders";
+
+            // Double-tap setup (only initialize if modal is visible)
+            if (!isVisible) {
+                setupDoubleTapToOpenCenterModal(modal);
+            }
+        });
+    }
+}
+
+// Function to handle double-tap on the modal
+function setupDoubleTapToOpenCenterModal(orderModal) {
+    let lastTap = 0;
+
+    // Centered modal creation
+    const centerModal = document.createElement("div");
+    centerModal.classList.add("order-modal-center-div");
+    centerModal.innerHTML = `
+        <div class="order-modal-content">
+            <h3>Order Details</h3>
+            ${orderModal.innerHTML}
+        </div>
+    `;
+    centerModal.style.display = "none";
+    document.body.appendChild(centerModal);
+
+    // Double-tap event listener
+    orderModal.addEventListener("click", () => {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+
+        if (tapLength < 300 && tapLength > 0) { // Double-tap within 300ms
+            centerModal.style.display = "flex";
+        }
+        lastTap = currentTime;
+    });
+
+    // Close centered modal on outside click
+    centerModal.addEventListener("click", (event) => {
+        if (event.target === centerModal) {
+            centerModal.style.display = "none";
+        }
+    });
+}
+
+
+
+async function fetchUsername(uid) {
+    const userRef = ref(database, `users/${uid}/name`);
+    const userSnapshot = await get(userRef);
+    return userSnapshot.exists() ? userSnapshot.val() : "Unknown User";
 }
 
 

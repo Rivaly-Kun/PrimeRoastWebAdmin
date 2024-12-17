@@ -9,6 +9,394 @@
     justify-content: space-evenly;
     align-items: center;
 }
+
+
+
+
+/* Buttons styling */
+.toggle-orders-btn, .outgoing-btn {
+    padding: 5px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-orders-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.toggle-orders-btn:hover {
+    background-color: #45a049;
+}
+
+.outgoing-btn {
+    background-color: #ff9800;
+    color: white;
+}
+
+.outgoing-btn:hover {
+    background-color: #e68900;
+}
+
+
+.orders-modal ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.orders-modal li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.orders-modal li:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.orders-modal img {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.orders-modal span {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.orders-modal * {
+    pointer-events: auto; /* Ensures child elements don't interfere */
+}
+
+/* Orders Modal Styling */
+.orders-modal {
+    pointer-events: auto; /* Ensures the element can be clicked */
+    cursor: pointer; /* Visual cue for clickable elements */
+    display: none; /* Hidden by default */
+    margin-top: 10px;
+    background-color: #f8f9fa; /* Light gray background */
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    transition: all 0.3s ease-in-out;
+}
+
+.orders-modal ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.orders-modal li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.orders-modal li:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.orders-modal img {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.orders-modal span {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Improve button style for toggle */
+.toggle-orders-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-orders-btn:hover {
+    background-color: #45a049;
+}
+
+
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Expandable Section */
+.order-details {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.toggle-items-btn, .outgoing-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 5px 0;
+}
+.toggle-items-btn:hover, .outgoing-btn:hover {
+    background-color: #45a049;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.close {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+.order-modal-center-div {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.order-modal-center-div .order-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px; /* Slightly rounder corners */
+    width: 90%;
+    max-width: 600px; /* Increased max-width for better layout */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    max-height: 80%;
+    text-align: left; /* Align content to the left for cleaner look */
+}
+
+.order-modal-center-div img {
+    max-width: 80px; /* Smaller consistent image size */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px; /* Rounded edges for images */
+    margin-right: 15px; /* Add spacing between image and text */
+}
+
+.order-modal-center-div ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-modal-center-div li {
+    display: flex;
+    align-items: center; /* Align image and text in one row */
+    border-bottom: 1px solid #ddd; /* Separator between items */
+    padding: 10px 0;
+}
+
+.order-modal-center-div li:last-child {
+    border-bottom: none; /* Remove border for last item */
+}
+
+.order-modal-center-div .item-details {
+    flex-grow: 1; /* Allow text to fill remaining space */
+}
+
+.order-modal-center-div .item-details p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.order-modal-center-div .item-details .price {
+    font-weight: bold;
+    color: #28a745; /* Green color for prices */
+}
+
+.order-modal-center-div h3 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+.order-modal {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.order-modal ul {
+    list-style: none; /* Removes bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.order-modal li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    align-content: space-around;
+
+}
+
+.order-modal img {
+    width: 50px; /* Fixed width */
+    height: 50px; /* Fixed height */
+    border-radius: 5px; /* Optional: Rounded corners */
+    object-fit: cover; /* Ensures the image fits the box without stretching */
+    margin-right: 10px; /* Space between image and text */
+}
+
+.order-modal span {
+    flex-grow: 1; /* Allows text to take remaining space */
+    font-size: 1em; /* Ensures readable text size */
+    color: #333; /* Darker text color for better contrast */
+    line-height: 1.2; /* Ensures spacing between lines */
+    word-break: break-word; /* Breaks long words if necessary */
+}
+
+
+
+.toggle-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.toggle-btn:hover {
+    background-color: #45a049;
+}
+
+.outgoing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.outgoing-table th, .outgoing-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.outgoing-table thead {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.outgoing-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.outgoing-table tr:hover {
+    background-color: #f1f8e9;
+}
+
+.toggle-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: #45a049;
+}
+
+.order-items {
+    list-style: none;
+    padding: 0;
+}
+
+.order-items li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.order-items img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 /* Basic styling for the menu-popup */
 .menu-popup {
     display: none !important;
@@ -997,7 +1385,8 @@ img {
 }
 .box span {
     font-weight: bold; /* Corrected from font-style */
-    font-size: 24px;
+    font-size: 22px;
+    text-align: center;
 }
 
 
