@@ -37,7 +37,7 @@ function loadAllTransactions() {
             headerRow.innerHTML = `
                 <th>Transaction ID</th>
                 <th>Date</th>
-                <th>Status</th>
+            
                 <th>Total Items</th>
                 <th>Total Price</th>
                 
@@ -115,7 +115,7 @@ function createTransactionTableRow(transactionData, transactionId) {
     tr.innerHTML = `
         <td>${transactionId || 'N/A'}</td>
         <td>${transaction.timestamp ? formatDate(transaction.timestamp) : 'N/A'}</td>
-        <td>${transaction.Status || 'N/A'}</td>
+   
         <td>${totalItems}</td>
         <td>₱${totalPrice.toFixed(2)}</td>
        
