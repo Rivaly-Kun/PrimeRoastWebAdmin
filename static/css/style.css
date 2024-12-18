@@ -1366,6 +1366,7 @@ button {
     flex-direction: row;
     height: 600px;
     width: fit-content;
+    min-height: 600px;
     min-width: 1000px;
 }
 
@@ -1760,7 +1761,7 @@ img {
 }
 .box span {
     font-weight: bold; /* Corrected from font-style */
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
 }
 

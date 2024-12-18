@@ -18,101 +18,105 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // Function to fetch and display all outgoing orders
+// Automatically opens a center modal when toggleOrders is called
 async function fetchOutgoingOrders() {
     const dbRef = ref(database, "outgoing");
     const snapshot = await get(dbRef);
     const tableBody = document.getElementById("outgoingDiv");
-
+  
     if (!snapshot.exists()) {
-        tableBody.innerHTML = `<tr><td colspan="5">No outgoing orders found.</td></tr>`;
-        return;
+      tableBody.innerHTML = `<tr><td colspan="5">No outgoing orders found.</td></tr>`;
+      return;
     }
-
+  
     const orders = snapshot.val();
-
+  
     for (const uid of Object.keys(orders)) {
-        const username = await fetchUsername(uid);
-        const indexedOrderData = orders[uid];
-        const orderKey = Object.keys(indexedOrderData)[0];
-        const orderData = indexedOrderData[orderKey];
-
-        const { Status, contactNumber, orderTime, orderItems } = orderData;
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${username}</td>
-
-            <td>${contactNumber || "N/A"}</td>
-            <td>${orderTime || "N/A"}</td>
-            <td>
-                <button class="toggle-btn">Show Orders</button>
-                <div class="order-modal" style="display: none;">
-                    <ul>
-                        ${Object.values(orderItems).map(item => `
-                            <li>
-                                <img src="${item.productImage}" alt="${item.productName}" />
-                              ${item.variant} - Qty: ${item.quantity} ₱ ${item.price}
-                            </li>
-                        `).join("")}
-                    </ul>
-                </div>
-            </td>
-        `;
-
-        // Append row to table
-        tableBody.appendChild(row);
-
-        // Toggle functionality
-        const toggleBtn = row.querySelector(".toggle-btn");
-        const modal = row.querySelector(".order-modal");
-
-        toggleBtn.addEventListener("click", () => {
-            const isVisible = modal.style.display === "block";
-            modal.style.display = isVisible ? "none" : "block";
-            toggleBtn.textContent = isVisible ? "Show Orders" : "Hide Orders";
-
-            // Double-tap setup (only initialize if modal is visible)
-            if (!isVisible) {
-                setupDoubleTapToOpenCenterModal(modal);
-            }
-        });
+      const username = await fetchUsername(uid);
+      const indexedOrderData = orders[uid];
+      const orderKey = Object.keys(indexedOrderData)[0];
+      const orderData = indexedOrderData[orderKey];
+  
+      const { Status, contactNumber, orderTime, orderItems } = orderData;
+  
+      const row = document.createElement("tr");
+      row.innerHTML = `
+          <td>${username}</td>
+          <td>${contactNumber || "N/A"}</td>
+          <td>${orderTime || "N/A"}</td>
+          <td>
+              <button class="toggle-btn">Show Orders</button>
+          </td>
+      `;
+  
+      // Append row to table
+      tableBody.appendChild(row);
+  
+      // Toggle functionality
+      const toggleBtn = row.querySelector(".toggle-btn");
+  
+      toggleBtn.addEventListener("click", () => {
+        openCenterModal(orderItems);
+      });
     }
-}
-
-// Function to handle double-tap on the modal
-function setupDoubleTapToOpenCenterModal(orderModal) {
-    let lastTap = 0;
-
-    // Centered modal creation
-    const centerModal = document.createElement("div");
-    centerModal.classList.add("order-modal-center-div");
-    centerModal.innerHTML = `
-        <div class="order-modal-content">
-            <h3>Order Details</h3>
-            ${orderModal.innerHTML}
-        </div>
+  }
+  
+  // Function to create and display the center modal
+  function openCenterModal(orderItems) {
+    // Create the content for the modal
+    const contentHtml = `
+      <div class="order-modal-content">
+        <h3>Order Details</h3>
+        <ul>
+          ${Object.values(orderItems).map(item => `
+            <li>
+              <img src="${item.productImage}" alt="${item.productName}" />
+              ${item.variant} - Qty: ${item.quantity} ₱ ${item.price}
+            </li>
+          `).join("")}
+        </ul>
+      </div>
     `;
-    centerModal.style.display = "none";
-    document.body.appendChild(centerModal);
-
-    // Double-tap event listener
-    orderModal.addEventListener("click", () => {
-        const currentTime = new Date().getTime();
-        const tapLength = currentTime - lastTap;
-
-        if (tapLength < 300 && tapLength > 0) { // Double-tap within 300ms
-            centerModal.style.display = "flex";
-        }
-        lastTap = currentTime;
-    });
-
-    // Close centered modal on outside click
-    centerModal.addEventListener("click", (event) => {
+  
+    // Check if the center modal already exists
+    let centerModal = document.getElementById("center-modal");
+  
+    if (!centerModal) {
+      // Create the center modal container
+      centerModal = document.createElement("div");
+      centerModal.id = "center-modal";
+      centerModal.classList.add("order-modal-center-div");
+  
+      // Add basic styles for centering the modal
+      Object.assign(centerModal.style, {
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        background: "rgba(0, 0, 0, 0.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: "1000",
+      });
+  
+      document.body.appendChild(centerModal);
+  
+      // Add click event listener for closing
+      centerModal.addEventListener("click", (event) => {
         if (event.target === centerModal) {
-            centerModal.style.display = "none";
+          console.log("Outside modal content clicked. Closing modal.");
+          centerModal.style.display = "none";
         }
-    });
-}
+      });
+    }
+  
+    // Update the content and display the modal
+    centerModal.innerHTML = contentHtml;
+    centerModal.style.display = "flex";
+  }
+  
 
 
 

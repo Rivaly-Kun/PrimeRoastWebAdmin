@@ -115,13 +115,23 @@ window.toggleOrders = function (modalId, buttonId) {
   }
 };
 
-
+// Automatically opens a center modal when toggleOrders is called
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded and parsed.");
 
+  // Attach toggleOrders functionality
+  window.toggleOrders = function (modalId) {
+    const orderModal = document.getElementById(modalId);
+    if (orderModal) {
+      console.log(`Toggling and opening center modal for: ${modalId}`);
+      openCenterModal(orderModal); // Automatically opens the center modal
+    } else {
+      console.error(`Modal with ID ${modalId} not found.`);
+    }
+  };
+
   // Delegate double-click events to a parent container
   document.body.addEventListener("dblclick", (event) => {
-    // Check if the clicked element is part of the modal
     const orderModal = event.target.closest(".orders-modal");
     if (orderModal) {
       console.log(`Opening modal for: ${orderModal.id}`);
@@ -130,38 +140,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-
 // Function to create and display the center modal
 function openCenterModal(orderModal) {
   console.log("Opening centered modal for:", orderModal.id);
 
   // Check if a modal already exists for this order
   let centerModal = document.getElementById(`center-modal-${orderModal.id}`);
-  
+
   if (!centerModal) {
     // Create the center modal container
     centerModal = document.createElement("div");
     centerModal.id = `center-modal-${orderModal.id}`;
     centerModal.classList.add("order-modal-center-div");
     centerModal.innerHTML = `
-          <div class="order-modal-content">
-              <h3>Order Details</h3>
-              ${orderModal.innerHTML}
-          </div>
-      `;
+      <div class="order-modal-content">
+        <h3>Order Details</h3>
+        ${orderModal.innerHTML}
+      </div>
+    `;
 
     // Add basic styles for centering the modal
-    centerModal.style.position = "fixed";
-    centerModal.style.top = "0";
-    centerModal.style.left = "0";
-    centerModal.style.width = "100%";
-    centerModal.style.height = "100%";
-    centerModal.style.background = "rgba(0, 0, 0, 0.7)";
-    centerModal.style.display = "flex";
-    centerModal.style.alignItems = "center";
-    centerModal.style.justifyContent = "center";
-    centerModal.style.zIndex = "1000";
+    Object.assign(centerModal.style, {
+      position: "fixed",
+      top: "0",
+      left: "0",
+      width: "100%",
+      height: "100%",
+      background: "rgba(0, 0, 0, 0.7)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: "1000",
+    });
 
     document.body.appendChild(centerModal);
 
@@ -179,7 +189,6 @@ function openCenterModal(orderModal) {
   // Make the modal visible
   centerModal.style.display = "flex";
 }
-
 
 
 
