@@ -22,7 +22,7 @@ const storage = getStorage(app);
 
 const menupopup = document.getElementsByClassName('menu-popup');
 const productMenu = document.getElementById('productMenu');
-const updateMenu = document.getElementById('updateMenu');
+
 const closeMenu = document.getElementById('closeMenuANIMALYAWA');
 const submitProduct = document.getElementById('submitProduct');
 const variantsContainer = document.getElementById('variantsContainer');
@@ -37,37 +37,28 @@ let variantCount = 1;
 
 // Open the Product Menu
 // Open the Product Menu
-updateMenu.onclick = () => {
-    if (menupopup.length > 0) {
-        // Remove 'open' class from all menu-popup elements
-        Array.from(menupopup).forEach(menu => {
-            document.getElementById("productMenu").classList.add("open", "menu-popup"); 
-            productMenu.style.display = 'block';
-        });
+// Wait for the DOM to load
+document.addEventListener("DOMContentLoaded", () => {
+    // Get the update button and modal elements
+    const updateMenuButton = document.getElementById("updateMenu");
+    const productMenuModal = document.getElementById("productMenu");
 
-        // Add 'open' class to the current product menu
-        productMenu.classList.add('open');
-    } else {
-        console.error("menu-popup element not found.");
-    }
-};
+    // Add an event listener to the button
+    updateMenuButton.addEventListener("click", () => {
+        // Open the modal by changing the display property
+        productMenuModal.style.display = "block"; // Set display to 'flex' to make it visible
+    });
 
-// Close the Product Menu
-closeMenu.onclick = () => {
-    if (menupopup.length > 0) {
-        console.log('Product Menu Closed');
-        
-       
-        // Remove 'open' class from all menu-popup elements
-        Array.from(menupopup).forEach(menu => {
-            document.getElementById("productMenu").classList.remove("open", "menu-popup");
-            productMenu.style.display = 'none';
+    // Optional: Add a close button functionality
+    const closeModalButton = document.getElementById("closeMenuANIMALYAWA");
+    if (closeModalButton) {
+        closeModalButton.addEventListener("click", () => {
+            productMenuModal.style.display = "none"; // Hide the modal
         });
-        
-    } else {
-        console.error("menu-popup element not found.");
     }
-};
+});
+
+
 
 
 

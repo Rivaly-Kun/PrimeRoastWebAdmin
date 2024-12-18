@@ -39,110 +39,145 @@ function updateCount(path, elementClass, label) {
 }
 
 // Move orders to outgoing
+
+
+// Firebase logic for sending orders to outgoing (remains unchanged)
+window.sendToOutgoing = function (userId, orderIndex) {
+  // Use SweetAlert to confirm the action
+  Swal.fire({
+      title: "Are you sure?",
+      text: "This order will be moved to orders to be delivering.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, move it!",
+      cancelButtonText: "Cancel"
+  }).then((result) => {
+      if (result.isConfirmed) {
+          const orderRef = ref(database, `orders/${userId}/${orderIndex}`);
+          const outgoingRef = ref(database, `outgoing/${userId}/${orderIndex}`);
+
+          get(orderRef)
+              .then(snapshot => {
+                  if (!snapshot.exists()) throw new Error("Order does not exist.");
+                  const orderData = snapshot.val();
+                  return set(outgoingRef, orderData).then(() => remove(orderRef));
+              })
+              .then(() => {
+                  console.log(`Order moved to outgoing: ${userId}/${orderIndex}`);
+                  const button = document.querySelector(`[data-user-id="${userId}"][data-order-index="${orderIndex}"]`);
+                  button.closest('tr').remove();
+
+                  // Show success alert
+                  Swal.fire({
+                      title: "Moved!",
+                      text: "The order has been successfully moved to outgoing.",
+                      icon: "success",
+                      timer: 2000,
+                      showConfirmButton: false
+                  });
+              })
+              .catch(error => {
+                  console.error('Error moving order:', error);
+
+                  // Show error alert
+                  Swal.fire({
+                      title: "Error!",
+                      text: "Failed to move the order. Please try again.",
+                      icon: "error"
+                  });
+              });
+      }
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
 window.toggleOrders = function (modalId, buttonId) {
   const modal = document.getElementById(modalId);
   const button = document.getElementById(buttonId);
 
   if (modal.style.display === "none" || modal.style.display === "") {
-      modal.style.display = "block";
-      button.textContent = "Hide Orders";
+    modal.style.display = "block";
+    button.textContent = "Hide Orders";
   } else {
-      modal.style.display = "none";
-      button.textContent = "Show Orders";
+    modal.style.display = "none";
+    button.textContent = "Show Orders";
   }
 };
-
-// Firebase logic for sending orders to outgoing (remains unchanged)
-window.sendToOutgoing = function (userId, orderIndex) {
-  const orderRef = ref(database, `orders/${userId}/${orderIndex}`);
-  const outgoingRef = ref(database, `outgoing/${userId}/${orderIndex}`);
-
-  get(orderRef).then(snapshot => {
-      if (!snapshot.exists()) throw new Error("Order does not exist.");
-
-      const orderData = snapshot.val();
-      return set(outgoingRef, orderData).then(() => remove(orderRef));
-  }).then(() => {
-      console.log(`Order moved to outgoing: ${userId}/${orderIndex}`);
-      const button = document.querySelector(`[data-user-id="${userId}"][data-order-index="${orderIndex}"]`);
-      button.closest('tr').remove();
-  }).catch(error => console.error('Error moving order:', error));
-};
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded and parsed.");
 
-  const orderModals = document.querySelectorAll(".orders-modal");
-
-  // Log to confirm modals are detected
-  if (!orderModals.length) {
-    console.error("No '.orders-modal' elements found.");
-    return;
-  }
-  console.log(`Found ${orderModals.length} '.orders-modal' elements.`);
-
-  // Loop through each modal and add a click listener
-  orderModals.forEach((orderModal) => {
-    console.log(`Initializing click event for modal: ${orderModal.id}`);
-
-    // Add click event listener
-    orderModal.addEventListener("click", () => {
-      console.log(`Modal clicked: ${orderModal.id}`);
+  // Delegate double-click events to a parent container
+  document.body.addEventListener("dblclick", (event) => {
+    // Check if the clicked element is part of the modal
+    const orderModal = event.target.closest(".orders-modal");
+    if (orderModal) {
+      console.log(`Opening modal for: ${orderModal.id}`);
       openCenterModal(orderModal);
-    });
+    }
   });
 });
+
+
 
 // Function to create and display the center modal
 function openCenterModal(orderModal) {
   console.log("Opening centered modal for:", orderModal.id);
 
-  // Create the center modal container
-  const centerModal = document.createElement("div");
-  centerModal.classList.add("order-modal-center-div");
-  centerModal.innerHTML = `
-        <div class="order-modal-content">
-            <h3>Order Details</h3>
-            ${orderModal.innerHTML}
-        </div>
-    `;
+  // Check if a modal already exists for this order
+  let centerModal = document.getElementById(`center-modal-${orderModal.id}`);
+  
+  if (!centerModal) {
+    // Create the center modal container
+    centerModal = document.createElement("div");
+    centerModal.id = `center-modal-${orderModal.id}`;
+    centerModal.classList.add("order-modal-center-div");
+    centerModal.innerHTML = `
+          <div class="order-modal-content">
+              <h3>Order Details</h3>
+              ${orderModal.innerHTML}
+          </div>
+      `;
 
-  // Add basic styles for centering the modal
-  centerModal.style.position = "fixed";
-  centerModal.style.top = "0";
-  centerModal.style.left = "0";
-  centerModal.style.width = "100%";
-  centerModal.style.height = "100%";
-  centerModal.style.background = "rgba(0, 0, 0, 0.7)";
+    // Add basic styles for centering the modal
+    centerModal.style.position = "fixed";
+    centerModal.style.top = "0";
+    centerModal.style.left = "0";
+    centerModal.style.width = "100%";
+    centerModal.style.height = "100%";
+    centerModal.style.background = "rgba(0, 0, 0, 0.7)";
+    centerModal.style.display = "flex";
+    centerModal.style.alignItems = "center";
+    centerModal.style.justifyContent = "center";
+    centerModal.style.zIndex = "1000";
+
+    document.body.appendChild(centerModal);
+
+    // Add click event listener for closing
+    centerModal.addEventListener("click", (event) => {
+      if (event.target === centerModal) {
+        console.log("Outside modal content clicked. Closing modal.");
+        centerModal.style.display = "none";
+      }
+    });
+  } else {
+    console.log("Reusing existing modal for:", orderModal.id);
+  }
+
+  // Make the modal visible
   centerModal.style.display = "flex";
-  centerModal.style.alignItems = "center";
-  centerModal.style.justifyContent = "center";
-  centerModal.style.zIndex = "1000";
-
-  document.body.appendChild(centerModal);
-  console.log("Centered modal created and displayed.");
-
-  // Close modal when clicking outside content
-  centerModal.addEventListener("click", (event) => {
-    if (event.target === centerModal) {
-      console.log("Outside modal content clicked. Closing modal.");
-      centerModal.style.display = "none";
-      centerModal.remove();
-    }
-  });
 }
 
 
@@ -155,6 +190,7 @@ function openCenterModal(orderModal) {
 
 
 
+ 
 // Refresh table when Firebase changes
 function refreshOrders() {
     fetch('/').then(response => response.text()).then(html => {
