@@ -41,7 +41,7 @@ async function fetchOutgoingOrders() {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${username}</td>
-            <td>${Status || "N/A"}</td>
+
             <td>${contactNumber || "N/A"}</td>
             <td>${orderTime || "N/A"}</td>
             <td>

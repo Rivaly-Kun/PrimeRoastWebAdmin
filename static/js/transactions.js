@@ -163,7 +163,7 @@ function showTransactionDetails(transactionData, transactionId) {
             
             <div class="transaction-details">
                 <p><strong>Transaction ID:</strong> ${transactionId || 'N/A'}</p>
-                <p><strong>Status:</strong> ${transaction.Status || 'N/A'}</p>
+
                 <p><strong>Order Time:</strong> ${transaction.orderTime || 'N/A'}</p>
                 <p><strong>Contact Number:</strong> ${transaction.contactNumber || 'N/A'}</p>
                 
